@@ -1,0 +1,4 @@
+Sanic<0.8
+walrus<0.6
+aiohttp<3.1
+PyYAML
