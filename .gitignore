@@ -105,3 +105,6 @@ $RECYCLE.BIN/
 *.msm
 *.msp
 *.lnk
+ChangeLog
+AUTHORS
+dump.rdb

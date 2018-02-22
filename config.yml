@@ -1,0 +1,11 @@
+---
+redis:
+  host: 127.0.0.1
+  port: 6379
+
+daemon:
+  host: 127.0.0.1
+  port: 18112
+
+page_size: 30  # How many blocks to display on explorer page
+coin_diff_target: 120
