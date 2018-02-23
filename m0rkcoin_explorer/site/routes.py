@@ -2,7 +2,9 @@ from sanic import Blueprint
 from sanic.request import Request
 from sanic.response import html
 
-from m0rkcoin_explorer.config import env, config
+from m0rkcoin_explorer.config import (
+    env, config, cache_client,
+    M0RKCOIN_EMISSION_KEY)
 from m0rkcoin_explorer import daemon, utils
 
 
@@ -13,7 +15,10 @@ async def home_page(request: Request):
 
     block_count = daemon.get_block_count()
 
-    start_block = int(request.args.get('start_block', block_count))
+    if request.args.get('start_block'):
+        start_block = int(request.args.get('start_block')) + 1
+    else:
+        start_block = block_count
 
     last_block = daemon.get_last_block_header()
 
@@ -24,19 +29,52 @@ async def home_page(request: Request):
     recent_blocks = []
     min_block = start_block - config.page_size
 
-    for height in range(max(min_block, 0) + 1, start_block + 1):
+    for height in range(max(min_block, 0), start_block + 1):
         recent_blocks.append(daemon.get_block_by_height(height))
 
     recent_blocks.reverse()
+
+    try:
+        emission = int(cache_client.get(M0RKCOIN_EMISSION_KEY))
+    except:
+        emission = 0
 
     ctx = {
         'block_count': f'{block_count:,}',
         'difficulty': f'{difficulty:,}',
         'hash_rate': hash_rate,
-        'emission': f'{int(last_block["reward"] / 1000000000000)}',
+        'emission': f'{int(emission / 1000000000000):,}',
         'recent_blocks': recent_blocks,
         'min_block': min_block
     }
 
     template = env.get_template('index.html')
+    return html(template.render(**ctx))
+
+
+@_site_bp.route('/blocks/<block_hash:[\w\d]{64}>', methods=['GET'])
+async def block_details_by_hash(request: Request, block_hash: str):
+    block_count = daemon.get_block_count()
+    block = daemon.get_block_by_hash(block_hash)
+
+    ctx = {
+        'block': block,
+        'block_count': block_count
+    }
+
+    template = env.get_template('block.html')
+    return html(template.render(**ctx))
+
+
+@_site_bp.route('/blocks/<block_height:\d+>', methods=['GET'])
+async def block_details_by_height(request: Request, block_height: int):
+    block_count = daemon.get_block_count()
+    block = daemon.get_block_by_height(int(block_height) + 1)
+
+    ctx = {
+        'block': block,
+        'block_count': block_count
+    }
+
+    template = env.get_template('block.html')
     return html(template.render(**ctx))

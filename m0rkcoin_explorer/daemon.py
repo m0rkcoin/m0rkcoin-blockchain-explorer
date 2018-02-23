@@ -1,14 +1,14 @@
 from m0rkcoin_explorer.config import cache, CACHE_HOUR
-from m0rkcoin_explorer.rpc_client import call_method
+from m0rkcoin_explorer.rpc_client import call_daemon_method
 
 
 def get_block_count():
-    resp = call_method('getblockcount')
+    resp = call_daemon_method('getblockcount')
     return resp['count']
 
 
 def get_block_hash(height: int):
-    resp = call_method(
+    resp = call_daemon_method(
         'on_getblockhash', {
             "height": height
         }
@@ -17,12 +17,12 @@ def get_block_hash(height: int):
 
 
 def get_last_block_header():
-    resp = call_method('getlastblockheader')
+    resp = call_daemon_method('getlastblockheader')
     return resp['block_header']
 
 
 def get_block_by_hash(hash: str):
-    resp = call_method(
+    resp = call_daemon_method(
         'getblockheaderbyhash', {
             "hash": hash
         }
@@ -32,7 +32,7 @@ def get_block_by_hash(hash: str):
 
 @cache.cached(timeout=CACHE_HOUR)
 def get_block_by_height(height: int):
-    resp = call_method(
+    resp = call_daemon_method(
         'getblockheaderbyheight', {
             "height": height
         }

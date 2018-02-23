@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Block {{ block['height'] }}</h1>
+    <div class="row">
+        <div class="col-sm-12">
+            <p>
+                {% if (block['height'] - 1) >= 0 %}
+                    <a href="/blocks/{{ block['height'] - 1 }}">
+                        <i class="fas fa-angle-left"></i> Prev. Block
+                    </a>
+                {% endif %}
+                |
+                {% if (block['height'] + 1) < block_count %}
+                    <a href="/blocks/{{ block['height'] + 1 }}">
+                        Next Block <i class="fas fa-angle-right"></i>
+                    </a>
+                {% endif %}
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 ml-sm-auto col-lg-12 pt-3 pt-4">
+            <table class="table-responsive">
+                <tr>
+                    <th>Height</th>
+                    <td> {{ block['height'] }}</td>
+                </tr>
+                <tr>
+                    <th>Hash</th>
+                    <td> {{ block['hash'] }}</td>
+                </tr>
+                <tr>
+                    <th>Difficulty</th>
+                    <td> {{ block['difficulty'] }}</td>
+                </tr>
+                <tr>
+                    <th>Height</th>
+                    <td> {{ block['height'] }}</td>
+                </tr>
+                <tr>
+                    <th>Reward</th>
+                    <td> {{ block['reward'] }} </td>
+                </tr>
+            </table>
+        </div>
+        <br>
+    </div>
+{% endblock %}

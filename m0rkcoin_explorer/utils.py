@@ -6,4 +6,4 @@ def get_human_readable_hash_rate(hash_rate: float) -> str:
     while hash_rate > 1024:
         hash_rate = hash_rate / 1024
         index += 1
-    return f'{hash_rate:.2f}{units[index]}'
+    return f'{hash_rate:.2f} {units[index]}'

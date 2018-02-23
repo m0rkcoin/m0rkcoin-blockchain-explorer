@@ -12,10 +12,20 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
           crossorigin="anonymous">
 
-    <title>m0rkcoin Explorer</title>
+    <title>m0rkcoin Blockchain Explorer</title>
 </head>
 <body>
-<div class="container-fluid">
+<header>
+    <div class="navbar navbar-dark bg-dark box-shadow">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <strong>m0rkcoin Blockchain Explorer</strong>
+            </a>
+        </div>
+    </div>
+</header>
+<br>
+<div class="container">
     {% block content %}{% endblock %}
 </div>
 
@@ -31,6 +41,7 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+<script defer src="//use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 <script src="/static/main.js"></script>
 </body>
 </html>

@@ -1,13 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>m0rkcoin Block Explorer</h1>
-
     <div class="row">
         <div class="col-sm-12 col-md-6 col-lg-3">
             <div class="card text-center">
                 <div class="card-header">
-                    Difficulty
+                    <i class="fas fa-shield-alt"></i> Difficulty
                 </div>
                 <div class="card-body">
                     <h2>{{ difficulty }}</h2>
@@ -18,7 +16,7 @@
         <div class="col-sm-12 col-md-6 col-lg-3">
             <div class="card text-center">
                 <div class="card-header">
-                    Height
+                    <i class="fas fa-angle-double-up"></i> Height
                 </div>
                 <div class="card-body">
                     <h2>{{ block_count }}</h2>
@@ -29,7 +27,7 @@
         <div class="col-sm-12 col-md-6 col-lg-3">
             <div class="card text-center">
                 <div class="card-header">
-                    Hashrate
+                    <i class="fas fa-hashtag"></i> Hashrate
                 </div>
                 <div class="card-body">
                     <h2>{{ hash_rate }}</h2>
@@ -40,7 +38,7 @@
         <div class="col-sm-12 col-md-6 col-lg-3">
             <div class="card text-center">
                 <div class="card-header">
-                    Emission
+                    <i class="fas fa-money-bill-alt"></i> Emission
                 </div>
                 <div class="card-body">
                     <h2>{{ emission }}</h2>
@@ -50,7 +48,7 @@
         </div>
     </div>
 
-    <h1>Latest blocks</h1>
+    <h1><i class="fas fa-cubes"></i> Latest blocks</h1>
     <div class="row">
         <div class="col-md-12 ml-sm-auto col-lg-12 pt-3 pt-4">
             <div class="table-responsive">
@@ -75,7 +73,9 @@
                     {% for block in recent_blocks %}
                         <tr>
                             <td>
-                                {{ block['height'] }}
+                                <a href="/blocks/{{ block['height'] }}">
+                                    {{ block['height'] }}
+                                </a>
                             </td>
                             <td>
                                 {{ block['timestamp'] }}
@@ -84,7 +84,9 @@
                                 {{ block['reward'] }}
                             </td>
                             <td>
-                                {{ block['hash'] }}
+                                <a href="/blocks/{{ block['height'] }}">
+                                    {{ block['hash'] }}
+                                </a>
                             </td>
                         </tr>
                     {% endfor %}
