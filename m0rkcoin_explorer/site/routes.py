@@ -6,6 +6,7 @@ from m0rkcoin_explorer.config import (
     env, config, cache_client,
     M0RKCOIN_EMISSION_KEY)
 from m0rkcoin_explorer import daemon, utils
+from m0rkcoin_explorer.utils import format_block_values
 
 
 _site_bp = Blueprint('site_bp', '')
@@ -36,6 +37,8 @@ async def home_page(request: Request):
 
     emission = int(cache_client.get(M0RKCOIN_EMISSION_KEY) or 0)
 
+    format_block_values(recent_blocks)
+
     ctx = {
         'block_count': f'{block_count:,}',
         'difficulty': f'{difficulty:,}',
@@ -54,6 +57,8 @@ async def block_details_by_hash(request: Request, block_hash: str):
     block_count = daemon.get_block_count()
     block = daemon.get_block_by_hash(block_hash)
 
+    format_block_values(block)
+
     ctx = {
         'block': block,
         'block_count': block_count
@@ -67,6 +72,8 @@ async def block_details_by_hash(request: Request, block_hash: str):
 async def block_details_by_height(request: Request, block_height: int):
     block_count = daemon.get_block_count()
     block = daemon.get_block_by_height(int(block_height) + 1)
+
+    format_block_values(block)
 
     ctx = {
         'block': block,

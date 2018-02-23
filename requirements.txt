@@ -4,3 +4,4 @@ walrus<0.6
 requests<3
 PyYAML
 munch==2.2.0
+arrow
