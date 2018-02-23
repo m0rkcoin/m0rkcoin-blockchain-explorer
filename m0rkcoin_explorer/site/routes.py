@@ -34,10 +34,7 @@ async def home_page(request: Request):
 
     recent_blocks.reverse()
 
-    try:
-        emission = int(cache_client.get(M0RKCOIN_EMISSION_KEY))
-    except:
-        emission = 0
+    emission = int(cache_client.get(M0RKCOIN_EMISSION_KEY) or 0)
 
     ctx = {
         'block_count': f'{block_count:,}',
