@@ -9,3 +9,7 @@ daemon:
 
 page_size: 30  # How many blocks to display on explorer page
 coin_diff_target: 120
+
+host: 127.0.0.1
+port: 8000
+debug: false

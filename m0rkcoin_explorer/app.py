@@ -3,7 +3,8 @@ import asyncio
 from sanic import Sanic
 
 from m0rkcoin_explorer import daemon
-from m0rkcoin_explorer.config import cache_client, M0RKCOIN_EMISSION_KEY
+from m0rkcoin_explorer.config import (
+    cache_client, M0RKCOIN_EMISSION_KEY, config)
 from m0rkcoin_explorer.site.routes import _site_bp
 
 app = Sanic()
@@ -27,4 +28,4 @@ async def calculate_emission():
 app.add_task(calculate_emission())
 
 if __name__ == '__main__':
-    app.run(host="127.0.0.1", port=8000, debug=True)
+    app.run(host=config.host, port=config.port, debug=config.debug)
